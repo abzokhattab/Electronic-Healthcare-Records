@@ -3,27 +3,33 @@ package com.ehr.controllers;
 import java.util.List;
 
 import com.ehr.models.Patient;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import com.ehr.requests.createPatientRequest;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.*;
 
-
+@Slf4j
+@Component
+@RequestMapping("api")
+@Service
+@AllArgsConstructor
 @RestController
+
 public class PatientController {
 
     // Aggregate root
     // tag::get-aggregate-root[]
-    @GetMapping("/patients")
-    List<Patient> all() {
-return null ;
+     @PostMapping("/createDoctor")
+    void newDoctor() {
+        System.out.print("doctor");
+
     }
 
-    @PostMapping("/patients")
-    Patient newEmployee(@RequestBody Patient newEmployee) {
+    @PostMapping("/createPatient")
+    Patient newEmployee(@RequestBody createPatientRequest newEmployee) {
+        System.out.print("patient");
         return null;
     }
 
