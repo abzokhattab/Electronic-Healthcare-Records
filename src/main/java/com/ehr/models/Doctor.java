@@ -61,9 +61,7 @@ public class Doctor {
             byte[] signatureToVerify,
             PublicKey key)
             throws Exception {
-        Signature signature
-                = Signature.getInstance(
-                SIGNING_ALGORITHM);
+        Signature signature = Signature.getInstance(SIGNING_ALGORITHM);
         signature.initVerify(key);
         signature.update(input);
         return signature
