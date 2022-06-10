@@ -4,22 +4,21 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.awt.Font;
+import java.util.Timer;
 
 
-
-
-class  jchain{
-    private static ArrayList<Block> blockchain = BlockChain.getInstance().blocks;
-    private static int counter =  BlockChain.getInstance().counter;
-    private static int difficulty = BlockChain.getInstance().difficulty;
-    private static JFrame frame;
-    private static TextField tf1;
-    private static JButton addBlock;
-    private static JButton viewBlocks;
-    private static TextArea statusBox;
-    private static int temp1 = 40;
-    private static int temp2 = 40;
-    private static int temp3 = 40;
+public class GUI extends  TimerTask{
+    public static ArrayList<Block> blockchain = BlockChain.getInstance().blocks;
+    public static int counter =  BlockChain.getInstance().counter;
+    public static int difficulty = BlockChain.getInstance().difficulty;
+    public static JFrame frame;
+    public static TextField tf1;
+    public static JButton addBlock;
+    public static JButton viewBlocks;
+    public static TextArea statusBox;
+    public static int temp1 = 40;
+    public static int temp2 = 40;
+    public static int temp3 = 40;
 
     public static Boolean isChainValid() {
         Block currentBlock;
@@ -47,6 +46,11 @@ class  jchain{
             }
         }
         return true;
+    }
+
+    @Override
+    public void run() {
+
     }
 
     public static class insertMouseAction extends MouseAdapter {
@@ -77,10 +81,10 @@ class  jchain{
                 } else {
 
                     if (counter == 0) {
-                        blockchain.add(new Block(msg, "0"));
+                        blockchain.add(new Block(msg, "0",""));
 
                     } else {
-                        blockchain.add(new Block(msg, blockchain.get(blockchain.size() - 1).hash));
+                        blockchain.add(new Block(msg, blockchain.get(blockchain.size() - 1).hash,""));
                     }
                     frame.setVisible(false);
                     frame.setVisible(true);
@@ -144,8 +148,7 @@ class  jchain{
             tf1.setText("Enter Data");
         }
     }
-
-    public static void main(String[] args) {
+    public static void callMain() {
         frame = new JFrame("Blockchain");
         JLabel label;
         label = new JLabel("Blockchain Simulation");
@@ -178,6 +181,19 @@ class  jchain{
         frame.getContentPane().setBackground(Color.decode("#28527a"));
         frame.setLayout(null);
         frame.setVisible(true);
+        // And From your main() method or any other method
+        Timer timer = new Timer();
+
+
+        Timer t = new Timer();
+        t.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                frame.setVisible(false);
+                frame.setVisible(true);
+
+            }
+        }, 0, 10000);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 }

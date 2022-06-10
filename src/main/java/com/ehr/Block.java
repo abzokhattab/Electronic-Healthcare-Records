@@ -1,5 +1,6 @@
 package com.ehr;
 
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.Date;
 
@@ -7,16 +8,22 @@ import java.util.Date;
 public class Block {
     public String hash;
     public String previousHash;
-    private String data;
-    private long timeStamp;
+    private final String data;
+    private final long timeStamp;
     private int nonce;
+    private final String patientId;
 
     // Block Constructor
-    public Block(String data, String previousHash) {
+    public Block(String data, String previousHash, String patientId) {
         this.data = data;
         this.previousHash = previousHash;
         this.timeStamp = new Date().getTime();
         this.hash = calculateHash();
+        this.patientId = patientId;
+    }
+
+    public String getPatientId() {
+        return patientId;
     }
 
     public String getData() {
@@ -34,7 +41,7 @@ public class Block {
     // Calculate new hash based on blocks contents
     public String calculateHash() {
         String calculatedhash = StringUtil
-                .applySha256(previousHash + Long.toString(timeStamp) + Integer.toString(nonce) + data);
+                .applySha256(previousHash + timeStamp + nonce + data);
         return calculatedhash;
     }
 
@@ -46,11 +53,25 @@ public class Block {
         }
         // System.out.println("Block Mined! -> " + hash);
     }
+
+    @Override
+    public String toString() {
+        return "Block{" +
+                "hash='" + hash + '\'' +
+                ", previousHash='" + previousHash + '\'' +
+                ", data='" + data + '\'' +
+                ", timeStamp=" + timeStamp +
+                ", nonce=" + nonce +
+                ", patientId='" + patientId + '\'' +
+                '}';
+    }
+
+
     class StringUtil {
         public static String applySha256(String input) {
             try {
                 MessageDigest digest = MessageDigest.getInstance("SHA-256");
-                byte[] hash = digest.digest(input.getBytes("UTF-8"));
+                byte[] hash = digest.digest(input.getBytes(StandardCharsets.UTF_8));
                 StringBuffer hexString = new StringBuffer();
                 for (int i = 0; i < hash.length; i++) {
                     String hex = Integer.toHexString(0xff & hash[i]);
