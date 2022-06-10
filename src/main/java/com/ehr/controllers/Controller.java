@@ -1,9 +1,8 @@
 package com.ehr.controllers;
 
-import java.util.List;
-
 import com.ehr.models.Patient;
 import com.ehr.requests.createPatientRequest;
+import com.ehr.requests.createVisitRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -17,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 @RestController
 
-public class PatientController {
+public class Controller {
 
     // Aggregate root
     // tag::get-aggregate-root[]
@@ -28,9 +27,17 @@ public class PatientController {
     }
 
     @PostMapping("/createPatient")
-    Patient newEmployee(@RequestBody createPatientRequest newEmployee) {
-        System.out.print("patient");
-        return null;
+    void newEmployee(@RequestBody createPatientRequest newPatient) {
+         System.out.print("patient");
+        System.out.print(newPatient);
+
+    }
+
+    @PostMapping("/createVisit")
+    void newVisit(@RequestBody createVisitRequest newVisit) {
+        System.out.print("visit");
+        System.out.print(newVisit);
+
     }
 
     // Single item
