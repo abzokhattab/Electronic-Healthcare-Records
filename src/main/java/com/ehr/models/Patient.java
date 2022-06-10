@@ -9,7 +9,7 @@ import lombok.Data;
 public class Patient {
     String name;
     int age;
-    float wieght;
+    float weight;
     float height;
     String sex;
     int bloodPressure;
