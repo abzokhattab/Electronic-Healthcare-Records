@@ -6,7 +6,7 @@ EHRs contain all information pertaining to a patient in the healthcare system. T
 
 The goal of this project is to create a blockchain application for the EHR operations mentioned above. For each patient, an initial transaction is to be added to a block in the blockchain that contains the general patient information. Then, for each visit a patient makes in the system, another transaction will be added to the most recent block with the information of that visit. The transaction for each patient will be chained in a similar way to the transactions of a user on the Bitcoin blockchain. The following figure illustrates how the blockchain would look like after adding the EHR of one patient.
 
-![](Aspose.Words.7c8b2b73-c070-4d01-9262-d35cedc8f59d.001.png)
+![](https://github.com/abzokhattab/Electronic-Healthcare-Records/raw/main/blockchain.png)
 
 You may assume that the transactions are uploaded to the blockchain via a healthcare professional (doctor/nurse). Like transactions in any blockchain, they should have the security services of integrity and non-repudiation. This means that transactions that are uploaded cannot be modified (which is the case in any blockchain) and that transactions are digitally signed by the person who uploads them.
 
