@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import lombok.Builder;
 import lombok.Data;
 
+import javax.crypto.SecretKey;
 import java.util.UUID;
 
 @Data
@@ -19,6 +20,7 @@ public class Patient {
     int bloodPressure;
     int pulse;
     float glucose;
+
 
 
     @Override

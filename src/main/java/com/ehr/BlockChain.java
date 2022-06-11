@@ -1,6 +1,8 @@
 package com.ehr;
 
 
+import com.google.gson.Gson;
+
 import java.security.PublicKey;
 import java.security.Signature;
 import java.util.ArrayList;
@@ -26,15 +28,15 @@ public class BlockChain {
         return instance;
     }
 
-    public Block addBlock(String msg, byte[] signatureToVerify, PublicKey key,String patientId) throws Exception {
+    public Block addBlock(String msg, byte[] signatureToVerify, PublicKey key,String patientId,String type) throws Exception {
         byte[] input = msg.getBytes();
         if (!Verify_Digital_Signature(input, signatureToVerify, key)) throw new Exception("Invalid signature");
         Block b;
         if (counter == 0) {
-            b = new Block(msg, "0",patientId);
+            b = new Block(msg, "0",patientId, type);
 
         } else {
-            b = new Block(msg, blocks.get(blocks.size() - 1).hash,patientId);
+            b = new Block(msg, blocks.get(blocks.size() - 1).hash,patientId,type);
         }
         blocks.add(b);
     blocks.get(counter).mineBlock(difficulty);
@@ -87,15 +89,21 @@ public class BlockChain {
                 .verify(signatureToVerify);
     }
 
-    public Block getBlockByPatientId(String patientId){
-
+    public ArrayList<Block> getBlockByPatientId(String patientId){
+    ArrayList<Block> bs = new ArrayList<Block>();
                 for ( Block block : blocks){
 
                     if(block.getPatientId().equals(patientId))
-                        return block ;
+                        bs.add( block) ;
                 }
 
-        return null;
+        return bs;
+    }
+    @Override
+    public String toString() {
+        Gson gson = new Gson();
+        String json = gson.toJson(this.blocks);
+        return json;
     }
 
 }

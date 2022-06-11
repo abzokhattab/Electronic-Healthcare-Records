@@ -81,10 +81,10 @@ public class GUI extends  TimerTask{
                 } else {
 
                     if (counter == 0) {
-                        blockchain.add(new Block(msg, "0",""));
+                        blockchain.add(new Block(msg, "0","",""));
 
                     } else {
-                        blockchain.add(new Block(msg, blockchain.get(blockchain.size() - 1).hash,""));
+                        blockchain.add(new Block(msg, blockchain.get(blockchain.size() - 1).hash,"",""));
                     }
                     frame.setVisible(false);
                     frame.setVisible(true);

@@ -1,5 +1,7 @@
 package com.ehr;
 
+import com.google.gson.Gson;
+
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.Date;
@@ -13,13 +15,20 @@ public class Block {
     private int nonce;
     private final String patientId;
 
+    public String getType() {
+        return type;
+    }
+
+    private String type ;
+
     // Block Constructor
-    public Block(String data, String previousHash, String patientId) {
+    public Block(String data, String previousHash, String patientId,String type) {
         this.data = data;
         this.previousHash = previousHash;
         this.timeStamp = new Date().getTime();
         this.hash = calculateHash();
         this.patientId = patientId;
+        this.type = type ;
     }
 
     public String getPatientId() {
@@ -56,16 +65,10 @@ public class Block {
 
     @Override
     public String toString() {
-        return "Block{" +
-                "hash='" + hash + '\'' +
-                ", previousHash='" + previousHash + '\'' +
-                ", data='" + data + '\'' +
-                ", timeStamp=" + timeStamp +
-                ", nonce=" + nonce +
-                ", patientId='" + patientId + '\'' +
-                '}';
+        Gson gson = new Gson();
+        String json = gson.toJson(this);
+        return json;
     }
-
 
     class StringUtil {
         public static String applySha256(String input) {
